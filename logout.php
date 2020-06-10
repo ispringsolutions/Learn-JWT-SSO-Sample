@@ -15,6 +15,12 @@ const EXAMPLE_JWT_ENCODE_ALG = 'HS256';
 $jwtString = $_GET['jwt'];
 try
 {
+    // Add leeway to avoid errors on clock skew.
+    // See https://stackoverflow.com/questions/40411014/
+    if (property_exists(JWT::class, 'leeway')) {
+        JWT::$leeway = max(JWT::$leeway, 60);
+    }
+
     $token = JWT::decode($jwtString, EXAMPLE_JWT_SECRET_KEY, EXAMPLE_JWT_ENCODE_ALG);
     $email = isset($token->email) ? $token->email : '';
     print("User with email {$email} is trying to logout!");

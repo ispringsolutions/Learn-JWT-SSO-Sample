@@ -21,7 +21,7 @@ const EXAMPLE_JWT_ENCODE_ALG = 'HS256';
 
 function sendVerifiedUserJWTData($userEmail)
 {
-    $tokenId = base64_encode(mcrypt_create_iv(32));
+    $tokenId = generateTokenId();
     $issuedAt = time();
     $expire = $issuedAt + 60;     // Add 60 seconds
 
@@ -66,6 +66,16 @@ function getPasswordFormField()
 function isUserExistsAndPasswordValid($userEmail, $userPassword)
 {
     return ($userEmail === EXAMPLE_USER_EMAIL) && ($userPassword === EXAMPLE_USER_PASSWORD_ON_YOUR_SERVER);
+}
+
+// Generates new token unique identifier.
+function generateTokenId()
+{
+    if (defined('PHP_MAJOR_VERSION') && PHP_MAJOR_VERSION < 7)
+    {
+        return base64_encode(mcrypt_create_iv(32));
+    }
+    return base64_encode(random_bytes(32));
 }
 
 function processJWTAuthorization()

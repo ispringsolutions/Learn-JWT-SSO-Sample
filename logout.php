@@ -1,12 +1,11 @@
-﻿<?php
+<?php
 
 // Include php JWT implementation library
 // https://github.com/firebase/php-jwt/tree/master/src
 
-require_once('../lib/sso/jwt/JWT.php');
-require_once('../lib/sso/jwt/BeforeValidException.php');
-require_once('../lib/sso/jwt/ExpiredException.php');
-require_once('../lib/sso/jwt/SignatureInvalidException.php');
+require_once(__DIR__ . '/vendor/autoload.php');
+
+use Firebase\JWT\JWT;
 
 // Enter the same secret key here: %Your_iSpring_Learn_domain%/settings/sso/jwt
 const EXAMPLE_JWT_SECRET_KEY = '********';
@@ -21,7 +20,7 @@ try
         JWT::$leeway = max(JWT::$leeway, 60);
     }
 
-    $token = JWT::decode($jwtString, EXAMPLE_JWT_SECRET_KEY, EXAMPLE_JWT_ENCODE_ALG);
+    $token = JWT::decode($jwtString, EXAMPLE_JWT_SECRET_KEY, [EXAMPLE_JWT_ENCODE_ALG]);
     $email = isset($token->email) ? $token->email : '';
     print("User with email {$email} is trying to logout!");
 }

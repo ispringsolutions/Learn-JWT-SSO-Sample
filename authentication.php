@@ -1,12 +1,11 @@
-﻿<?php
+<?php
 
 // Include php JWT implementation library
 // https://github.com/firebase/php-jwt/tree/master/src
 
-require_once('../lib/sso/jwt/JWT.php');
-require_once('../lib/sso/jwt/BeforeValidException.php');
-require_once('../lib/sso/jwt/ExpiredException.php');
-require_once('../lib/sso/jwt/SignatureInvalidException.php');
+require_once(__DIR__ . '/vendor/autoload.php');
+
+use Firebase\JWT\JWT;
 
 const PROTOCOL_STRING = 'https://';
 const ISPRING_LEARN_DOMAIN = '***.ispringlearn.com';

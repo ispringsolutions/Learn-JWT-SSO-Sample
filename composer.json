@@ -1,0 +1,10 @@
+{
+  "name": "ispringsolutions/Learn-JWT-SSO-Sample",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [],
+  "require": {
+    "firebase/php-jwt": "^5.2"
+  }
+}
